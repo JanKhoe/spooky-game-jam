@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://bt6bmek2my453"]
+
+[ext_resource type="Script" path="res://Scripts/Ghost.cs" id="1_0upuc"]
+[ext_resource type="PhysicsMaterial" uid="uid://chof4cj2kow5x" path="res://PhysicsMats/physicsMaxFriction.tres" id="1_2gnus"]
+[ext_resource type="Texture2D" uid="uid://c1ptml453i874" path="res://icon.svg" id="1_obylo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yljew"]
+size = Vector2(126, 129)
+
+[node name="Ghost" type="RigidBody2D"]
+collision_layer = 9
+collision_mask = 6
+mass = 100.0
+physics_material_override = ExtResource("1_2gnus")
+gravity_scale = 0.0
+lock_rotation = true
+script = ExtResource("1_0upuc")
+
+[node name="Icon" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.137255)
+position = Vector2(0, 1)
+texture = ExtResource("1_obylo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_yljew")
