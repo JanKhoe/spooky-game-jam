@@ -11,6 +11,7 @@ public partial class Player : myObj
 	private List<Vector2> followDirections= new();
 	private Vector2 curDirection;
 	bool reset_state = false;
+	Vector2 posBeforeReset = new Vector2(100000,1000000);
 	
 
 	[Export]
@@ -66,6 +67,8 @@ public partial class Player : myObj
 		if(curDirection != direction){
 			//If you are not standing still
 			if(followDirections[^1]!=Position){
+				GD.Print("LAST POSITION ADDED: " + followDirections[^1]);
+				GD.Print("NEW POSITION ADDED: "+ Position);
 				curDirection = direction;
 				followDirections.Add(Position);
 			}
@@ -82,21 +85,18 @@ public partial class Player : myObj
 
 	}
 
-	void _on_area_2d_area_entered(Area2D Body){
+  void _on_area_2d_area_entered(Area2D Body){
 		GD.Print("Hello");
 		followDirections.Add(Position + direction*50);
 		lvlManager.setParams(followDirections, startingPos);
-		EmitSignal(SignalName.RestartRun);
-		GD.Print("NEW POSITION"+Position);
+		GD.Print("OLD POSITION"+Position);
 		startingPos = new Vector2(startingPos.X, startingPos.Y+150);
-		
 		// goToStart();
-
 		reset_state = true;
 		// LinearVelocity = Vector2.Zero;
 		
-		GD.Print("NEW POSITION"+Position);
-		followDirections = new(){startingPos};
+			
+		
 		
 		
 	}
@@ -107,6 +107,9 @@ public partial class Player : myObj
 					newTransform.Origin.X = startingPos.X;
 					newTransform.Origin.Y = startingPos.Y;
 					state.Transform = newTransform;
+					GD.Print("NEW POSITION"+Position);
+					followDirections = new(){startingPos};
+					EmitSignal(SignalName.RestartRun);
 					reset_state = false;
 				}
         

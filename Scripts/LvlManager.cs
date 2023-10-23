@@ -19,6 +19,8 @@ public partial class LvlManager : Node
 	{
 	}
 	public void setParams(List<Vector2> followDirections, Vector2 pos){
+		this.followDirections = new();
+		this.pos = new();
 		this.followDirections.Add(followDirections);
 		this.pos.Add(pos);
 	}
@@ -32,7 +34,9 @@ public partial class LvlManager : Node
 			ghostScript.setStartingPos(pos[i]);
 			// Ghost.CallDeferred("AddChild");
 			ghostScript.followDirections = followDirections[i];
-			this.CallDeferred("add_child", Ghost);
+			GD.Print("Ghost made");
+
+			CallDeferred("add_child", Ghost);
 		}
 		
 		// AddChild(Ghost);
